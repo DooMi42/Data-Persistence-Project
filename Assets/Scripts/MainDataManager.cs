@@ -6,7 +6,7 @@ public class MainDataManager : MonoBehaviour
 {
     public static MainDataManager Instance;
 
-    public string PlayerName;
+    public string playerName;
 
     public int Score;
 

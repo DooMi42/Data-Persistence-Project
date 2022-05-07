@@ -48,6 +48,9 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        CurrentPlayerName.text = MainDataManager.Instance.playerName;
+
+        SetBestPlayer();
     }
 
     private void Update()
@@ -77,12 +80,14 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
+        MainDataManager.Instance.Score = m_Points;
         ScoreText.text = $"Score : {m_Points}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
+        CheckBestPlayer();
         GameOverText.SetActive(true);
     }
 
@@ -92,10 +97,10 @@ public class MainManager : MonoBehaviour
 
         if (CurrentScore > BestScore)
         {
-            BestPlayer = MainDataManager.Instance.PlayerName;
+            BestPlayer = MainDataManager.Instance.playerName;
             BestScore = CurrentScore;
 
-            BestPlayerName.text = $"Best Score - {BestPlayer}: {BestScore}";
+            BestPlayerName.text = "Best Score: " + BestPlayer + " " + BestScore;
 
             SaveGameRank(BestPlayer, BestScore);
         }
@@ -109,7 +114,7 @@ public class MainManager : MonoBehaviour
         }
         else
         {
-            BestPlayerName.text = $"Best Score - {BestPlayer}: {BestScore}";
+            BestPlayerName.text = "Best Score: " + BestPlayer + " " + BestScore;
         }
 
     }
